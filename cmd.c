@@ -49,7 +49,6 @@ char CMD_TOK_OFF[] PROGMEM = "OFF";
 char CMD_TOK_RESET[] PROGMEM = "RESET";
 
 char CMD_TOK_BLE[] PROGMEM = "BLE";
-char CMD_TOK_INIT[] PROGMEM = "INIT";
 
 static uint8_t cmd_log_target;
 
@@ -281,22 +280,6 @@ void cmd_str_exec (char *cmd_str, uint8_t cmd_intf)
 
                 // print confirmation message
                 usart_print_str_P (CMD_MSG_OK);
-
-            } else if (!(strcmp_P (strupr (cmd_token), CMD_TOK_INIT))) {
-
-                // send initialization command
-                if (ble_send_cmd (BLE_CMD_TYPE_INIT, "") == BLE_CMD_PASS)
-                {
-
-                    // print confirmation message
-                    usart_print_str_P (CMD_MSG_OK);
-
-                } else {
-
-                    // print error message
-                    usart_print_str_P (CMD_MSG_BLE_ERROR);
-
-                } // if (pass)
 
             } else {
 
