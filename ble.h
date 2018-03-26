@@ -19,6 +19,9 @@
 #define BLE_CMD_FAIL            0
 #define BLE_CMD_PASS            1
 
+#define BLE_START_DELAY_US      105
+#define BLE_RETRY_DELAY_US      50
+
 #define BLE_RESET_WIDTH_MS      10
 
 extern char ble_rx_buffer[BLE_RX_SIZE];

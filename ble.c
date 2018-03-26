@@ -21,7 +21,7 @@ void ble_packet_tx (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
 
         // assert chip select
         PORTB &= ~(1 << BT_CSn);
-        _delay_us (125);
+        _delay_us (BLE_START_DELAY_US);
 
         // send header and check for not-ready response
         while (spi_xfer (tx_msg_type) == BLE_MSG_NOT_READY)
@@ -29,11 +29,11 @@ void ble_packet_tx (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
 
             // de-assert chip select and wait
             PORTB |= (1 << BT_CSn);
-            _delay_us (50);
+            _delay_us (BLE_RETRY_DELAY_US);
 
             // re-assert chip select
             PORTB &= ~(1 << BT_CSn);
-            _delay_us (125);
+            _delay_us (BLE_START_DELAY_US);
 
         } // while (not ready)
 
@@ -87,7 +87,7 @@ void ble_packet_tx_P (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
 
         // assert chip select
         PORTB &= ~(1 << BT_CSn);
-        _delay_us (125);
+        _delay_us (BLE_START_DELAY_US);
 
         // send header and check for not-ready response
         while (spi_xfer (tx_msg_type) == BLE_MSG_NOT_READY)
@@ -95,11 +95,11 @@ void ble_packet_tx_P (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
 
             // de-assert chip select and wait
             PORTB |= (1 << BT_CSn);
-            _delay_us (50);
+            _delay_us (BLE_RETRY_DELAY_US);
 
             // re-assert chip select
             PORTB &= ~(1 << BT_CSn);
-            _delay_us (125);
+            _delay_us (BLE_START_DELAY_US);
 
         } // while (not ready)
 
@@ -151,7 +151,7 @@ void ble_packet_rx (uint8_t *rx_msg_type, uint16_t *rx_id)
 
         // assert chip select
         PORTB &= ~(1 << BT_CSn);
-        _delay_us (125);
+        _delay_us (BLE_START_DELAY_US);
 
         // capture header (first try)
         *rx_msg_type = spi_xfer (0xFF);
@@ -162,11 +162,11 @@ void ble_packet_rx (uint8_t *rx_msg_type, uint16_t *rx_id)
 
             // de-assert chip select and wait
             PORTB |= (1 << BT_CSn);
-            _delay_us (50);
+            _delay_us (BLE_RETRY_DELAY_US);
 
             // re-assert chip select
             PORTB &= ~(1 << BT_CSn);
-            _delay_us (125);
+            _delay_us (BLE_START_DELAY_US);
 
             // retry header
             *rx_msg_type = spi_xfer (0xFF);
