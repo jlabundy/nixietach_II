@@ -1,8 +1,8 @@
 // Port B GPIO
 #define BLANK                   0
 #define BST_SHDN                1
-#define BT_RSTn                 2
-#define BT_CSn                  3
+#define BLE_RSTn                2
+#define BLE_CSn                 3
 #define DISP_CSn                4
 #define MCU_DI                  5
 #define MCU_DO                  6
@@ -12,7 +12,7 @@
 #define MCU_RXD                 0
 #define MCU_TXD                 1
 #define PNL_RPMn                2
-#define BT_IRQn                 3
+#define BLE_IRQn                3
 #define CSW_4n                  4
 #define CSW_8n                  5
 #define MCU_ICP                 6

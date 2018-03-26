@@ -20,7 +20,7 @@ void ble_packet_tx (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
     do {
 
         // assert chip select
-        PORTB &= ~(1 << BT_CSn);
+        PORTB &= ~(1 << BLE_CSn);
         _delay_us (BLE_START_DELAY_US);
 
         // send header and check for not-ready response
@@ -28,11 +28,11 @@ void ble_packet_tx (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
         {
 
             // de-assert chip select and wait
-            PORTB |= (1 << BT_CSn);
+            PORTB |= (1 << BLE_CSn);
             _delay_us (BLE_RETRY_DELAY_US);
 
             // re-assert chip select
-            PORTB &= ~(1 << BT_CSn);
+            PORTB &= ~(1 << BLE_CSn);
             _delay_us (BLE_START_DELAY_US);
 
         } // while (not ready)
@@ -69,7 +69,7 @@ void ble_packet_tx (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
         } // if (tx_length)
 
         // de-assert chip select
-        PORTB |= (1 << BT_CSn);
+        PORTB |= (1 << BLE_CSn);
 
     } while (tx_length);
 
@@ -86,7 +86,7 @@ void ble_packet_tx_P (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
     do {
 
         // assert chip select
-        PORTB &= ~(1 << BT_CSn);
+        PORTB &= ~(1 << BLE_CSn);
         _delay_us (BLE_START_DELAY_US);
 
         // send header and check for not-ready response
@@ -94,11 +94,11 @@ void ble_packet_tx_P (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
         {
 
             // de-assert chip select and wait
-            PORTB |= (1 << BT_CSn);
+            PORTB |= (1 << BLE_CSn);
             _delay_us (BLE_RETRY_DELAY_US);
 
             // re-assert chip select
-            PORTB &= ~(1 << BT_CSn);
+            PORTB &= ~(1 << BLE_CSn);
             _delay_us (BLE_START_DELAY_US);
 
         } // while (not ready)
@@ -135,7 +135,7 @@ void ble_packet_tx_P (uint8_t tx_msg_type, uint16_t tx_id, char *tx_payload)
         } // if (tx_length)
 
         // de-assert chip select
-        PORTB |= (1 << BT_CSn);
+        PORTB |= (1 << BLE_CSn);
 
     } while (tx_length);
 
@@ -150,7 +150,7 @@ void ble_packet_rx (uint8_t *rx_msg_type, uint16_t *rx_id)
     do {
 
         // assert chip select
-        PORTB &= ~(1 << BT_CSn);
+        PORTB &= ~(1 << BLE_CSn);
         _delay_us (BLE_START_DELAY_US);
 
         // capture header (first try)
@@ -161,11 +161,11 @@ void ble_packet_rx (uint8_t *rx_msg_type, uint16_t *rx_id)
         {
 
             // de-assert chip select and wait
-            PORTB |= (1 << BT_CSn);
+            PORTB |= (1 << BLE_CSn);
             _delay_us (BLE_RETRY_DELAY_US);
 
             // re-assert chip select
-            PORTB &= ~(1 << BT_CSn);
+            PORTB &= ~(1 << BLE_CSn);
             _delay_us (BLE_START_DELAY_US);
 
             // retry header
@@ -213,7 +213,7 @@ void ble_packet_rx (uint8_t *rx_msg_type, uint16_t *rx_id)
         } // for (i)
 
         // de-assert chip select
-        PORTB |= (1 << BT_CSn);
+        PORTB |= (1 << BLE_CSn);
 
     } while (rx_length & (1 << BLE_MORE_DATA));
 
@@ -229,7 +229,7 @@ uint8_t ble_send_cmd (uint16_t cmd_id, char *cmd_payload)
     ble_packet_tx (BLE_MSG_TYPE_CMD, cmd_id, cmd_payload);
 
     // wait for interrupt
-    while (PIND & (1 << BT_IRQn));
+    while (PIND & (1 << BLE_IRQn));
 
     // retrieve response packet
     ble_packet_rx (&resp_msg_type, &resp_id);
@@ -258,7 +258,7 @@ uint8_t ble_send_cmd_P (uint16_t cmd_id, char *cmd_payload)
     ble_packet_tx_P (BLE_MSG_TYPE_CMD, cmd_id, cmd_payload);
 
     // wait for interrupt
-    while (PIND & (1 << BT_IRQn));
+    while (PIND & (1 << BLE_IRQn));
 
     // retrieve response packet
     ble_packet_rx (&resp_msg_type, &resp_id);
@@ -281,11 +281,11 @@ void ble_reset (void)
 {
 
     // assert reset and wait
-    PORTB &= ~(1 << BT_RSTn);
+    PORTB &= ~(1 << BLE_RSTn);
     _delay_ms (BLE_RESET_WIDTH_MS);
 
     // release reset and wait
-    PORTB |= (1 << BT_RSTn);
+    PORTB |= (1 << BLE_RSTn);
     _delay_ms (BLE_RESET_DELAY_MS);
 
 }
