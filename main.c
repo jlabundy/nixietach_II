@@ -1,7 +1,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdint.h>
-#include <stdlib.h>
 
 #include "usart.h"
 #include "cmd.h"
@@ -110,7 +109,7 @@ int main (void)
             timer0_tick_flag = 0;
 
             // poll BLE module
-            ble_send_cmd (BLE_CMD_TYPE_UARTRX, NULL);
+            ble_send_cmd (BLE_CMD_TYPE_UARTRX, "");
 
             // update display (if not in demo mode)
             if (display_mode_get () == DISPLAY_MODE_NORM) display_update ();

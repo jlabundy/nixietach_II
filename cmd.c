@@ -285,7 +285,7 @@ void cmd_str_exec (char *cmd_str, uint8_t cmd_intf)
             } else if (!(strcmp_P (strupr (cmd_token), CMD_TOK_INIT))) {
 
                 // send initialization command
-                if (ble_send_cmd (BLE_CMD_TYPE_INIT, NULL) == BLE_CMD_PASS)
+                if (ble_send_cmd (BLE_CMD_TYPE_INIT, "") == BLE_CMD_PASS)
                 {
 
                     // print confirmation message
