@@ -23,6 +23,7 @@
 #define BLE_RETRY_DELAY_US      50
 
 #define BLE_RESET_WIDTH_MS      10
+#define BLE_RESET_DELAY_MS      100
 
 extern char ble_rx_buffer[BLE_RX_SIZE];
 extern uint8_t ble_rx_rptr, ble_rx_wptr;

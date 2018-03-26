@@ -284,7 +284,8 @@ void ble_reset (void)
     PORTB &= ~(1 << BT_RSTn);
     _delay_ms (BLE_RESET_WIDTH_MS);
 
-    // release reset
+    // release reset and wait
     PORTB |= (1 << BT_RSTn);
+    _delay_ms (BLE_RESET_DELAY_MS);
 
 }
