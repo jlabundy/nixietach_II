@@ -17,8 +17,7 @@ char CMD_MSG_CRLF[] PROGMEM = "\r\n";
 char CMD_MSG_OK[] PROGMEM = "OK\r\n";
 char CMD_MSG_INVALID[] PROGMEM = "Invalid entry\r\n";
 
-char CMD_MSG_VER1[] PROGMEM = "NIXIETACH II Command-Line Interface\r\n";
-char CMD_MSG_VER2[] PROGMEM = "Build Date: 6/25/2017\r\n";
+char CMD_MSG_VER[] PROGMEM = "NIXIETACH II Command-Line Interface\r\n" __DATE__ " " __TIME__ "\r\n";
 
 char CMD_MSG_8CYL[] PROGMEM = "8 cylinders\r\n";
 char CMD_MSG_6CYL[] PROGMEM = "6 cylinders\r\n";
@@ -137,8 +136,7 @@ void cmd_str_exec (char *cmd_str, uint8_t cmd_intf)
     } else if (!(strcmp_P (strupr (cmd_token), CMD_TOK_VER))) {
 
         // print version info
-        cmd_print_str_P (CMD_MSG_VER1, cmd_intf);
-        cmd_print_str_P (CMD_MSG_VER2, cmd_intf);
+        cmd_print_str_P (CMD_MSG_VER, cmd_intf);
 
         // print cursor (terminal only)
         if (cmd_intf == CMD_INTF_USART) usart_print_str_P (CMD_MSG_CURSOR);
