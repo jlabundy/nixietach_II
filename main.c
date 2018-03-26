@@ -61,9 +61,6 @@ int main (void)
     // reset BLE module
     ble_reset ();
 
-    // display cursor
-    cmd_str_exec (NULL, CMD_INTF_USART);
-
     // executive loop
     while (1)
     {
